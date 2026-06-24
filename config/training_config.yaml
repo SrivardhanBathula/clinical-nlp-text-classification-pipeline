@@ -1,0 +1,32 @@
+model:
+  base_model: "emilyalsentzer/Bio_ClinicalBERT"
+  num_labels_classification: 50
+  num_labels_ner: 31
+  max_length: 512
+  dropout: 0.1
+
+training:
+  batch_size: 32
+  learning_rate: 2.0e-5
+  num_epochs: 10
+  warmup_steps: 500
+  weight_decay: 0.01
+  gradient_accumulation_steps: 4
+  fp16: true
+  early_stopping_patience: 3
+
+data:
+  train_split: 0.8
+  val_split: 0.1
+  test_split: 0.1
+  max_samples: null
+
+mlflow:
+  experiment_name: "clinical-nlp-pipeline"
+  tracking_uri: "http://localhost:5000"
+  register_model: true
+
+inference:
+  batch_size: 64
+  max_latency_ms: 120
+  device: "cuda"
